@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:wght@400;600;700&family=Great+Vibes&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:wght@400;600;700&display=swap"
     rel="stylesheet">
 
   <style>
@@ -218,7 +218,7 @@
     }
 
     h1 {
-      font-family: "Great Vibes", cursive;
+      font-family: "Monotype Corsiva", "Apple Chancery", "ITC Zapf Chancery", "Urw Chancery L", cursive;
       color: var(--gold-bright);
       margin: 0 0 16px;
       font-size: var(--font-h1);
@@ -282,7 +282,7 @@
     }
 
     .section-title {
-      font-family: "Great Vibes", cursive;
+      font-family: "Monotype Corsiva", "Apple Chancery", "ITC Zapf Chancery", "Urw Chancery L", cursive;
       margin: 0 0 20px;
       color: var(--gold-bright);
       font-size: var(--font-heading);
@@ -345,7 +345,7 @@
       margin: 0 0 10px;
       color: var(--gold-bright);
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-      font-family: "Great Vibes", cursive;
+      font-family: "Monotype Corsiva", "Apple Chancery", "ITC Zapf Chancery", "Urw Chancery L", cursive;
       font-weight: 500;
       font-size: var(--font-heading);
       /* Standardized heading size */
@@ -622,7 +622,7 @@
     }
 
     .welcome-title {
-      font-family: "Great Vibes", cursive;
+      font-family: "Monotype Corsiva", "Apple Chancery", "ITC Zapf Chancery", "Urw Chancery L", cursive;
       color: var(--gold-bright);
       font-size: clamp(40px, 8vw, 70px);
       margin-bottom: 20px;
@@ -745,6 +745,14 @@
         <h2 class="section-title"><strong>Events</strong></h2>
         <div class="events">
           <div class="event">
+            <h3>Kasi Yatra (Piligrimage to Kasi)</h3>
+            <p>During the Kasi Yatra , the groom pretends announce to worldly pleasures and embarks on a pilgrimage to
+              Kashi (Varanasi). However, the bride’s father intercepts him, persuading him to complete his duties as a
+              householder instead. This ritual entertainingly underscores the balance between spiritual aspirations and
+              familial responsibilities, emphasizing the groom’s receipt of his marital and societal obligations.</p>
+          </div>
+
+          <div class="event">
             <h3>Kanyadaanam (Giving Away the Bride)</h3>
             <p>Kanyadaanam is an emotional parting rite whereby parents transfer their daughter's girlhood to her
               husbands-to-be's hands.</p>
@@ -755,18 +763,25 @@
               safe in their married life.</p>
           </div>
           <div class="event">
-            <h3>Saptapadi (Seven Steps)</h3>
-            <p>The bride and groom walk seven steps around the fire. Each step has a vow. These vows cover parts of
-              married life, like respect, love, and being close.</p>
+            <h3>JeelaKarra - Bellam(Cumin-Jaggery)</h3>
+            <p>Jeelakarra-Bellam literally translates to ‘cumin-jaggery’, involves the couple placing a paste made from
+              cumin seeds and jaggery on each other’s heads. This ritual is performed during an auspicious muhurtham
+              (propitious time) and it signifies the couple’s union and their promise to support each other throughout
+              their lives.</p>
           </div>
           <div class="event">
-            <h3>Mangalsutra Dharana</h3>
+            <h3>Mangalsutra Dharana (The holy knot)</h3>
             <p>The groom ties a holy chain called the Mangalsutra around the bride's neck. The small act expresses their
               unity.</p>
           </div>
           <div class="event">
             <h3>Talambralu (Rice Shower)</h3>
             <p>In this fun and happy ritual, the pair throw rice with turmeric and saffron at each other.</p>
+          </div>
+          <div class="event">
+            <h3>Saptapadi (Seven Steps)</h3>
+            <p>The bride and groom walk seven steps around the fire. Each step has a vow. These vows cover parts of
+              married life, like respect, love, and being close.</p>
           </div>
           <div class="event">
             <h3>Arundhati Nakshatram (Watching the stars)</h3>
@@ -886,7 +901,7 @@
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && CONFIG.musicFile) {
         bgMusic.src = CONFIG.musicFile;
-        bgMusic.volume = 0.05; // Slightly higher volume, still comfortable
+        bgMusic.volume = 0.04; // Slightly higher volume, still comfortable
         console.log('✅ Background music source set');
 
         // Function to attempt playing
