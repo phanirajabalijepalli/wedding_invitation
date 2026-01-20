@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Wedding Invitation - Bharath & Anusha</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600;700&family=Pinyon+Script&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --maroon-velvet: #5C1625;
+      --gold-bright: #FFD700;
+      --gold-text: #E6C266;
+      --cream-border: #E6D5B8;
+      --page-gold: #E6C266;
+
+      /* Standardized Font Sizes */
+      --font-h1: clamp(32px, 5.5vw, 58px);
+      /* Top Name */
+      --font-heading: clamp(26px, 3.5vw, 34px);
+      /* All other headings */
+      --font-body: clamp(17px, 2.2vw, 21px);
+      /* All write-ups */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cormorant Garamond", serif;
+      min-height: 100vh;
+      padding: clamp(12px, 2.5vw, 25px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #000000;
+    }
+
+    .page-decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.5) 2px, transparent 3px);
+      background-size: 30px 30px;
+    }
+
+    .invite {
+      width: min(1800px, 98vw);
+      position: relative;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .arch-invite {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: auto;
+      /* max-height removed to maintain aspect ratio while stretching */
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0.95;
+    }
+
+    .arch-top {
+      top: 0;
+      object-position: top center;
+    }
+
+    .arch-bottom {
+      bottom: 0;
+      object-position: bottom center;
+    }
+
+    .panel {
+      position: relative;
+      z-index: 10;
+      border-radius: 20px;
+      padding: clamp(100px, 28vw, 600px) clamp(30px, 5vw, 60px) clamp(450px, 45vw, 550px);
+      /* Increased bottom padding to push the arch down a lot */
+      border: 2px solid rgba(230, 213, 184, 0.4);
+      overflow: visible;
+
+      background-image: url("assets/input_bg1.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-color: var(--maroon-velvet);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 35% 20%, rgba(255, 220, 140, 0.14), transparent 50%),
+        radial-gradient(ellipse at 65% 80%, rgba(0, 0, 0, 0.3), transparent 55%);
+      mix-blend-mode: soft-light;
+      filter: blur(10px);
+      z-index: 1;
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(115deg,
+          rgba(255, 255, 255, 0.015) 0px,
+          rgba(255, 255, 255, 0.015) 2px,
+          rgba(0, 0, 0, 0.015) 4px,
+          rgba(0, 0, 0, 0.015) 6px);
+      opacity: 0.3;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+
+    .panel>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: clamp(30px, 5vw, 45px);
+      position: relative;
+    }
+
+    /* Oval removed as requested */
+    /* header::before { ... } */
+
+    .ganesh-img {
+      width: clamp(300px, 40vw, 450px);
+      height: auto;
+      margin-bottom: 15px;
+      margin-top: -150px;
+      /* Moved up as requested */
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6)) brightness(1.4) contrast(1.1);
+      position: relative;
+      z-index: 25;
+      /* Ensure it stays above arch if overlap occurs */
+    }
+
+    .kicker {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: 0.1em;
+      color: var(--gold-text);
+      margin-bottom: 25px;
+      /* Increased spacing */
+      font-size: var(--font-body);
+      /* Standardized write-up size */
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      font-weight: 600;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 30;
+      /* Ensure text is above image if processed */
+    }
+
+    h1 {
+      font-family: "Pinyon Script", cursive;
+      color: var(--gold-bright);
+      margin: 0 0 16px;
+      font-size: var(--font-h1);
+      line-height: 1.15;
+      text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(255, 215, 0, 0.3);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .sub {
+      margin: 0 0 8px;
+      font-size: var(--font-body);
+      color: #f5e6c8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      line-height: 1.6;
+    }
+
+    .divider {
+      margin: 18px auto;
+      width: min(500px, 72%);
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold-bright) 30%, var(--gold-bright) 70%, transparent);
+      opacity: 0.8;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    }
+
+    .btnrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    a.btn {
+      display: inline-block;
+      text-decoration: none;
+      color: #2b1700;
+      background: linear-gradient(135deg, #ffe08a, var(--gold-bright));
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: clamp(13px, 1.5vw, 14px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    a.btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(135deg, var(--gold-bright), #ffe08a);
+    }
+
+    .section {
+      margin-top: clamp(35px, 5vw, 50px);
+    }
+
+    .section-title {
+      font-family: "Pinyon Script", cursive;
+      margin: 0 0 20px;
+      color: var(--gold-bright);
+      font-size: var(--font-heading);
+      /* Standardized heading size */
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.65);
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      /* Script font looks bad in all-caps */
+    }
+
+    .video {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid rgba(230, 213, 184, 0.5);
+      background: rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .events {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 650px) {
+      .events {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .event {
+      border: 2px solid rgba(230, 213, 184, 0.4);
+      border-radius: 14px;
+      padding: clamp(18px, 3.5vw, 24px);
+      background: rgba(0, 0, 0, 0.28);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .event:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border-color: rgba(230, 213, 184, 0.7);
+    }
+
+    .event h3 {
+      margin: 0 0 10px;
+      color: var(--gold-bright);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      font-family: "Pinyon Script", cursive;
+      font-weight: 500;
+      font-size: var(--font-heading);
+      /* Standardized heading size */
+    }
+
+    .event p {
+      margin: 0;
+      color: #f5e6c8;
+      font-size: var(--font-body);
+      line-height: 1.6;
+    }
+
+    .two-col {
+      display: grid;
+      gap: clamp(22px, 4vw, 32px);
+      grid-template-columns: 1fr;
+      margin-top: clamp(35px, 5vw, 50px);
+    }
+
+    @media (min-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .embed {
+      border: 2px solid rgba(230, 213, 184, 0.5);
+      border-radius: 15px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .form-iframe {
+      width: 100%;
+      height: clamp(550px, 65vh, 750px);
+      border: 0;
+      display: block;
+      background: white;
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: clamp(550px, 65vh, 750px);
+      /* Matched RSVP form height */
+      border: 0;
+      display: block;
+    }
+
+    .music-player {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 9999;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: linear-gradient(135deg, #8B1538, #5C1625);
+      border: 3px solid var(--gold-bright);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+
+    .music-player:hover {
+      transform: scale(1.12);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    }
+
+    .music-icon {
+      color: var(--gold-bright);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .music-player.playing {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      }
+
+      50% {
+        box-shadow: 0 8px 36px rgba(255, 215, 0, 0.8),
+          0 0 25px rgba(255, 215, 0, 0.5);
+      }
+    }
+
+    /* Contact styles removed - now uses standard section/event classes */
+
+    @media (max-width: 768px) {
+      .panel {
+        padding: 180px clamp(20px, 4vw, 35px) clamp(400px, 40vw, 700px);
+        /* Increased bottom padding for mobile to push arch down */
+      }
+
+      h1 {
+        font-size: clamp(26px, 7vw, 38px);
+      }
+
+      .events {
+        grid-template-columns: 1fr;
+      }
+
+      .ganesh-img {
+        width: clamp(150px, 35vw, 220px);
+        margin-top: 20px;
+        /* Moved down away from top arch */
+      }
+
+      .arch-invite {
+        max-height: 180px;
+        /* Allow more height so it's not squashed */
+        object-fit: cover;
+        /* Prevent squashing, allow slight cropping on sides */
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
+      .invite {
+        margin: 15px auto;
+      }
+
+      .panel {
+        padding: 150px 16px 400px;
+        /* Pushed arch down for small phones */
+      }
+
+      .ganesh-img {
+        width: 300px;
+        margin-top: 10px;
+        /* Moved down */
+      }
+
+      .arch-invite {
+        max-height: 140px;
+        object-fit: cover;
+      }
+
+      .music-player {
+        width: 54px;
+        height: 54px;
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .music-icon {
+        font-size: 23px;
+      }
+
+      a.btn {
+        padding: 9px 18px;
+        font-size: 12px;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :target {
+      scroll-margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-decor"></div>
+
+  <!-- Music Player -->
+  <div class="music-player" id="musicPlayer" onclick="toggleMusic()" title="Play/Pause music">
+    <span class="music-icon" id="musicIcon">🎵</span>
+  </div>
+  <audio id="bgMusic" loop preload="auto" autoplay></audio>
+
+  <!-- Invitation Card -->
+  <div class="invite">
+
+    <img class="arch-invite arch-top" src="assets/top_arch.gif" alt="Top decorative border">
+    <img class="arch-invite arch-bottom" src="assets/bottom_arch.gif" alt="Bottom decorative border">
+
+    <div class="panel">
+
+      <!-- HEADER -->
+      <header>
+        <img class="ganesh-img" src="assets/ganesh1.png" alt="Ganesh">
+        <p class="kicker">With blessings of our families</p>
+        <h1>Bharath<br>&amp;<br>Anusha</h1>
+        <p class="sub">We request the honor of your presence on our wedding day</p>
+
+        <div class="divider"></div>
+
+        <p class="sub" id="wedding-details">
+          <strong>Date:</strong> <span id="wedding-date">Loading...</span> •
+          <strong>Muhurtham:</strong> <span id="muhurtham-time">Loading...</span> •
+          <strong>City:</strong> <span id="wedding-city">Loading...</span>
+          <br>
+          The wedding event starts at 10:30 AM onwards
+        </p>
+
+        <div class="btnrow">
+          <a class="btn" href="#rsvp">RSVP</a>
+          <a class="btn" href="#location">Location</a>
+          <a class="btn" href="#events">Events</a>
+          <a class="btn" href="#contact-info">Contact Info</a>
+        </div>
+      </header>
+
+      <!-- VIDEO SECTION -->
+      <section class="section">
+        <h2 class="section-title"><strong>Invitation Video</strong></h2>
+        <div class="video">
+          <iframe id="youtube-video" title="Wedding Invitation Video" referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="section" id="events">
+        <h2 class="section-title"><strong>Events</strong></h2>
+        <div class="events">
+          <div class="event">
+            <h3>Kanyadaanam (Giving Away the Bride)</h3>
+            <p>Kanyadaanam is an emotional parting rite whereby parents transfer their daughter's girlhood to her new
+              husbands-to-be's hands.</p>
+          </div>
+          <div class="event">
+            <h3>Panigrahanam (Acceptance of Hand)</h3>
+            <p>During Panigrahanam, the groom takes the bride's hand. This act shows he will stand by her and keep her
+              safe in their married life.</p>
+          </div>
+          <div class="event">
+            <h3>Saptapadi (Seven Steps)</h3>
+            <p>The bride and groom walk seven steps around the fire. Each step has a vow. These vows cover parts of
+              married life, like respect, love, and being close.</p>
+          </div>
+          <div class="event">
+            <h3>Mangalsutra Dharana</h3>
+            <p>The groom ties a holy chain called the Mangalsutra around the bride's neck. The small act expresses their
+              unity.</p>
+          </div>
+          <div class="event">
+            <h3>Talambralu (Rice Shower)</h3>
+            <p>In this fun and happy ritual, the pair throw rice with turmeric and saffron at each other.</p>
+          </div>
+          <div class="event">
+            <h3>Arundhati Nakshatram (Watching the stars)</h3>
+            <p>This act assists the couple in achieving the same deep relationship and faith as the star couple.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP + LOCATION -->
+      <section class="section two-col">
+
+        <div id="rsvp">
+          <h2 class="section-title"><strong>RSVP</strong></h2>
+          <div class="embed">
+            <iframe id="rsvp-form" class="form-iframe" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+              title="RSVP Form">
+              Loading…
+            </iframe>
+          </div>
+        </div>
+
+        <div id="location">
+          <h2 class="section-title"><strong>Location</strong></h2>
+          <div class="embed">
+            <iframe id="google-map" class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen title="Wedding Venue"></iframe>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CONTACT US (Now inside panel flow) -->
+      <section class="section" id="contact-info" style="text-align: center;">
+        <h2 class="section-title"><strong>Contact Info</strong></h2>
+        <div class="event" style="max-width: 600px; margin: 0 auto;">
+          <p>For any queries or assistance, please reach out:</p>
+          <p style="font-size: 1.2em; margin: 15px 0;">
+            📞 <a id="contact-phone" href="#"
+              style="color: var(--gold-text); text-decoration: none; font-weight: 700;">Loading...</a>
+          </p>
+          <p style="font-size: 1.1em;">
+            📧 <a id="contact-email" href="#"
+              style="color: var(--gold-text); text-decoration: none; font-weight: 700;">Loading...</a>
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <!-- Load configuration -->
+  <script src="config.js"></script>
+
+  <!-- Main script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      loadConfig();
+    });
+
+    function loadConfig() {
+      if (typeof CONFIG === 'undefined') {
+        console.error('⚠️ config.js not found! Copy config.example.js to config.js');
+        const detailsEl = document.getElementById('wedding-details');
+        if (detailsEl) {
+          detailsEl.innerHTML = '<strong style="color: #ff6b6b;">⚠️ Configuration missing!</strong>';
+        }
+        return;
+      }
+
+      // Load YouTube video
+      const youtubeIframe = document.getElementById('youtube-video');
+      if (youtubeIframe) {
+        youtubeIframe.src = `https://www.youtube.com/embed/${CONFIG.youtubeVideoId}?rel=0`;
+        youtubeIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        youtubeIframe.setAttribute('frameborder', '0');
+        youtubeIframe.setAttribute('allowfullscreen', '');
+        console.log('✅ YouTube video loaded');
+      } else {
+        console.error('❌ YouTube iframe not found');
+      }
+
+      // Load Google Form
+      const rsvpForm = document.getElementById('rsvp-form');
+      if (rsvpForm) {
+        rsvpForm.src = CONFIG.googleFormUrl;
+        console.log('✅ RSVP form loaded');
+      } else {
+        console.error('❌ RSVP form iframe not found');
+      }
+
+      // Load Google Maps
+      const googleMap = document.getElementById('google-map');
+      if (googleMap) {
+        googleMap.src = CONFIG.googleMapsEmbedUrl;
+        console.log('✅ Google Maps loaded');
+      } else {
+        console.error('❌ Google Maps iframe not found');
+      }
+
+      // Load wedding details
+      const dateEl = document.getElementById('wedding-date');
+      const timeEl = document.getElementById('muhurtham-time');
+      const cityEl = document.getElementById('wedding-city');
+
+      if (dateEl) dateEl.textContent = CONFIG.weddingDate;
+      if (timeEl) timeEl.textContent = CONFIG.muhurthamTime;
+      if (cityEl) cityEl.textContent = CONFIG.city;
+
+      // Load music
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic && CONFIG.musicFile) {
+        const source = document.createElement('source');
+        source.src = CONFIG.musicFile;
+        source.type = 'audio/mpeg';
+        bgMusic.appendChild(source);
+        bgMusic.volume = 0.2; /* Low volume for autoplay */
+        console.log('✅ Background music loaded');
+
+        // Auto-play attempt on first interaction (required by many browsers)
+        const startMusic = () => {
+          if (bgMusic.paused) {
+            bgMusic.play().then(() => {
+              document.getElementById('musicPlayer').classList.add('playing');
+              document.getElementById('musicIcon').textContent = '⏸️';
+            }).catch(e => console.log("Autoplay blocked by browser policy"));
+          }
+          window.removeEventListener('click', startMusic);
+          window.removeEventListener('touchstart', startMusic);
+        };
+        window.addEventListener('click', startMusic);
+        window.addEventListener('touchstart', startMusic);
+      }
+
+      // Load Contact Details
+      const phoneEl = document.getElementById('contact-phone');
+      const emailEl = document.getElementById('contact-email');
+
+      if (phoneEl && CONFIG.contactPhone) {
+        phoneEl.textContent = CONFIG.contactPhone;
+        phoneEl.href = `tel:${CONFIG.contactPhone.replace(/\s+/g, '')}`;
+      }
+
+      if (emailEl && CONFIG.contactEmail) {
+        emailEl.textContent = CONFIG.contactEmail;
+        emailEl.href = `mailto:${CONFIG.contactEmail}`;
+      }
+
+      console.log('✅ All configuration loaded successfully!');
+    }
+
+    function toggleMusic() {
+      const bgMusic = document.getElementById('bgMusic');
+      const musicPlayer = document.getElementById('musicPlayer');
+      const musicIcon = document.getElementById('musicIcon');
+
+      if (!bgMusic || !musicPlayer || !musicIcon) return;
+
+      if (bgMusic.paused) {
+        bgMusic.play()
+          .then(() => {
+            musicPlayer.classList.add('playing');
+            musicIcon.textContent = '⏸️';
+          })
+          .catch(err => console.log('Audio play failed:', err));
+      } else {
+        bgMusic.pause();
+        musicPlayer.classList.remove('playing');
+        musicIcon.textContent = '🎵';
+      }
+    }
+
+    window.toggleMusic = toggleMusic;
+
+    window.addEventListener('load', function () {
+      document.querySelectorAll('.arch-invite').forEach(img => {
+        img.addEventListener('load', () => console.log('✅ Arch loaded:', img.src));
+        img.addEventListener('error', () => console.log('❌ Arch failed:', img.src));
+      });
+    });
+  </script>
+</body>
+
+</html>
