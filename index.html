@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600;700&family=Pinyon+Script&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:wght@400;600;700&family=Great+Vibes&display=swap"
     rel="stylesheet">
 
   <style>
@@ -37,7 +37,7 @@
     }
 
     body {
-      font-family: "Cormorant Garamond", serif;
+      font-family: "EB Garamond", serif;
       min-height: 100vh;
       padding: clamp(12px, 2.5vw, 25px);
       display: flex;
@@ -77,14 +77,21 @@
       }
     }
 
-    .lily-bg {
-      position: fixed;
-      width: 150px;
-      height: auto;
-      pointer-events: none;
-      opacity: 0.08;
-      z-index: 1;
-      filter: blur(1px);
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(110vh) translateX(100px) rotate(720deg);
+        opacity: 0.2;
+      }
     }
 
     .invite {
@@ -192,7 +199,7 @@
     }
 
     .kicker {
-      font-family: "Cormorant Garamond", serif;
+      font-family: "EB Garamond", serif;
       letter-spacing: 0.1em;
       color: var(--gold-text);
       margin-bottom: 25px;
@@ -208,7 +215,7 @@
     }
 
     h1 {
-      font-family: "Pinyon Script", cursive;
+      font-family: "Great Vibes", cursive;
       color: var(--gold-bright);
       margin: 0 0 16px;
       font-size: var(--font-h1);
@@ -272,7 +279,7 @@
     }
 
     .section-title {
-      font-family: "Pinyon Script", cursive;
+      font-family: "Great Vibes", cursive;
       margin: 0 0 20px;
       color: var(--gold-bright);
       font-size: var(--font-heading);
@@ -335,7 +342,7 @@
       margin: 0 0 10px;
       color: var(--gold-bright);
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-      font-family: "Pinyon Script", cursive;
+      font-family: "Great Vibes", cursive;
       font-weight: 500;
       font-size: var(--font-heading);
       /* Standardized heading size */
@@ -503,6 +510,36 @@
       }
     }
 
+    /* Chakra Styling */
+    .chakra-container {
+      text-align: center;
+      margin: 40px auto 0;
+      position: relative;
+      z-index: 30;
+    }
+
+    .bottom-chakra {
+      width: clamp(120px, 20vw, 250px);
+      height: auto;
+      margin-bottom: -400px;
+      /* Pushed further down into the arch */
+      filter: drop-shadow(0 0 15px rgba(230, 194, 102, 0.4)) brightness(1.2);
+      animation: rotate-chakra 20s linear infinite;
+      opacity: 0.9;
+      position: relative;
+      z-index: 25;
+    }
+
+    @keyframes rotate-chakra {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     /* Welcome Overlay */
     #welcome-overlay {
       position: fixed;
@@ -544,7 +581,7 @@
     }
 
     .welcome-title {
-      font-family: "Pinyon Script", cursive;
+      font-family: "Great Vibes", cursive;
       color: var(--gold-bright);
       font-size: clamp(40px, 8vw, 70px);
       margin-bottom: 20px;
@@ -589,6 +626,13 @@
     :target {
       scroll-margin-top: 30px;
     }
+
+    .clean-numbers {
+      font-family: "EB Garamond", serif;
+      letter-spacing: 0.02em;
+      font-weight: 600;
+      font-style: normal;
+    }
   </style>
 </head>
 
@@ -628,11 +672,13 @@
         <div class="divider"></div>
 
         <p class="sub" id="wedding-details">
-          <strong>Date:</strong> <span id="wedding-date">Loading...</span> •
-          <strong>Muhurtham:</strong> <span id="muhurtham-time">Loading...</span> •
+          <strong>Date:</strong> <span id="wedding-date" class="clean-numbers">Loading...</span> •
+          <strong>Muhurtham (Propitious Time):</strong> <span id="muhurtham-time"
+            class="clean-numbers">Loading...</span>
+          •
           <strong>City:</strong> <span id="wedding-city">Loading...</span>
           <br>
-          The wedding event starts at 10:30 AM onwards
+          The wedding event starts at <span class="clean-numbers">10:30 AM</span> onwards
         </p>
 
         <div class="btnrow">
@@ -659,7 +705,7 @@
         <div class="events">
           <div class="event">
             <h3>Kanyadaanam (Giving Away the Bride)</h3>
-            <p>Kanyadaanam is an emotional parting rite whereby parents transfer their daughter's girlhood to her new
+            <p>Kanyadaanam is an emotional parting rite whereby parents transfer their daughter's girlhood to her
               husbands-to-be's hands.</p>
           </div>
           <div class="event">
@@ -711,13 +757,14 @@
 
       </section>
 
+
       <!-- CONTACT US (Now inside panel flow) -->
       <section class="section" id="contact-info" style="text-align: center;">
         <h2 class="section-title"><strong>Contact Info</strong></h2>
         <div class="event" style="max-width: 600px; margin: 0 auto;">
           <p>For any queries or assistance, please reach out:</p>
           <p style="font-size: 1.2em; margin: 15px 0;">
-            📞 <a id="contact-phone" href="#"
+            📞 <a id="contact-phone" class="clean-numbers" href="#"
               style="color: var(--gold-text); text-decoration: none; font-weight: 700;">Loading...</a>
           </p>
           <p style="font-size: 1.1em;">
@@ -726,6 +773,11 @@
           </p>
         </div>
       </section>
+
+      <!-- CHAKRA BEFORE BOTTOM ARCH -->
+      <div class="chakra-container">
+        <img src="assets/chakra.png" class="bottom-chakra" alt="Decorative Chakra">
+      </div>
 
     </div>
 
@@ -793,7 +845,7 @@
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && CONFIG.musicFile) {
         bgMusic.src = CONFIG.musicFile;
-        bgMusic.volume = 0.1; // Slightly higher volume, still comfortable
+        bgMusic.volume = 0.05; // Slightly higher volume, still comfortable
         console.log('✅ Background music source set');
 
         // Function to attempt playing
@@ -911,31 +963,8 @@
       }
     }
 
-    function createLilies() {
-      const container = document.body;
-      const count = 6;
-      for (let i = 0; i < count; i++) {
-        const lily = document.createElement('img');
-        lily.src = 'assets/lily_flower.png';
-        lily.className = 'lily-bg';
-
-        const x = Math.random() * 90;
-        const y = Math.random() * 90;
-        const rotation = Math.random() * 360;
-        const size = Math.random() * 100 + 100;
-
-        lily.style.left = `${x}%`;
-        lily.style.top = `${y}%`;
-        lily.style.width = `${size}px`;
-        lily.style.transform = `rotate(${rotation}deg)`;
-
-        container.insertBefore(lily, container.firstChild);
-      }
-    }
-
     window.addEventListener('load', function () {
       createStars();
-      createLilies();
       document.querySelectorAll('.arch-invite').forEach(img => {
         img.addEventListener('load', () => console.log('✅ Arch loaded:', img.src));
         img.addEventListener('error', () => console.log('❌ Arch failed:', img.src));
