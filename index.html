@@ -9,13 +9,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:wght@400;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --maroon-velvet: #F08787;
+      --maroon-velvet: #5C1625;
       --gold-bright: #FFD700;
       --gold-text: #E6C266;
       --cream-border: #E6D5B8;
@@ -132,7 +130,7 @@
       z-index: 25;
       /* Content layer, stays below arch edges */
       border-radius: 20px;
-      padding: clamp(100px, 25vw, 500px) clamp(20px, 5vw, 60px) clamp(650px, 40vw, 1200px);
+      padding: clamp(100px, 25vw, 500px) clamp(20px, 5vw, 60px) clamp(550px, 35vw, 900px);
       /* Increased bottom padding to push the arch down a lot */
       border: 2px solid rgba(230, 213, 184, 0.4);
       overflow: visible;
@@ -472,7 +470,7 @@
 
       .bottom-chakra {
         width: clamp(100px, 25vw, 180px);
-        margin-bottom: -120px;
+        margin-bottom: -40px !important;
         /* ✅ Less negative margin */
         margin-top: 40px;
         margin-left: auto;
@@ -527,7 +525,7 @@
 
       .bottom-chakra {
         width: clamp(80px, 30vw, 140px);
-        margin-bottom: -80px;
+        margin-bottom: -20px !important;
         /* ✅ Less negative margin */
         margin-top: 30px;
         margin-left: auto;
@@ -554,10 +552,39 @@
       /* ✅ Center vertically */
     }
 
+    #dress-code,
+    #contact-info {
+      grid-column: 1 / -1;
+    }
+
+    #dress-code .event,
+    #contact-info .event {
+      max-width: 700px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #youtube-subscription {
+      grid-column: 1 / -1;
+      justify-content: center;
+    }
+
+    #youtube-subscription span {
+      text-align: center;
+      font-style: italic;
+      color: var(--gold-bright);
+    }
+
+    .chakra-container {
+      grid-column: 1 / -1;
+    }
+
     .bottom-chakra {
       width: clamp(120px, 20vw, 250px);
       height: auto;
-      margin-bottom: -130px;
+      margin-bottom: -220px;
       margin-top: 10px;
       margin-left: auto;
       /* ✅ Center the image */
@@ -726,6 +753,7 @@
           <a class="btn" href="#rsvp">RSVP</a>
           <a class="btn" href="#location">Location</a>
           <a class="btn" href="#events">Events</a>
+          <a class="btn" href="#dress-code">Dress Code</a>
           <a class="btn" href="#contact-info">Contact Info</a>
         </div>
       </header>
@@ -745,17 +773,17 @@
         <h2 class="section-title"><strong>Events</strong></h2>
         <div class="events">
           <div class="event">
-            <h3>Kasi Yatra (Piligrimage to Kasi)</h3>
-            <p>During the Kasi Yatra , the groom pretends announce to worldly pleasures and embarks on a pilgrimage to
+            <h3>Kasi Yatra (Pilgrimage to Kasi)</h3>
+            <p>During the Kasi Yatra , the groom pretends to renounce worldly pleasures and embarks on a pilgrimage to
               Kasi (Varanasi). However, the bride’s father intercepts him, persuading him to complete his duties as a
               householder instead. This ritual entertainingly underscores the balance between spiritual aspirations and
-              familial responsibilities, emphasizing the groom’s receipt of his marital and societal obligations.</p>
+              familial responsibilities, emphasizing the groom’s acceptance of his marital and societal obligations.</p>
           </div>
 
           <div class="event">
             <h3>Kanyadaanam (Giving Away the Bride)</h3>
             <p>Kanyadaanam is an emotional parting rite whereby parents transfer their daughter's girlhood to her
-              husbands-to-be's hands.</p>
+              husband-to-be's hands.</p>
           </div>
           <div class="event">
             <h3>Panigrahanam (Acceptance of Hand)</h3>
@@ -763,7 +791,7 @@
               safe in their married life.</p>
           </div>
           <div class="event">
-            <h3>JeelaKarra - Bellam(Cumin-Jaggery)</h3>
+            <h3>Jeelakarra - Bellam (Cumin-Jaggery)</h3>
             <p>Jeelakarra-Bellam literally translates to ‘cumin-jaggery’, involves the couple placing a paste made from
               cumin seeds and jaggery on each other’s heads. This ritual is performed during an auspicious muhurtham
               (propitious time) and it signifies the couple’s union and their promise to support each other throughout
@@ -812,36 +840,58 @@
           </div>
         </div>
 
-      </section>
+        <!-- DRESS CODE -->
+        <section class="section" id="dress-code" style="text-align: center;">
+          <h2 class="section-title"><strong>Dress Code</strong></h2>
+          <div class="event" style="max-width: 600px; margin: 0 auto;">
+            <p>Indian traditional or Formal</p>
+            <p style="font-style: italic; color: var(--gold-bright); margin-top: 10px; font-size: 0.85em;">Note: This is
+              an outdoor
+              celebration</p>
+          </div>
+        </section>
 
+        <!-- CONTACT US (Now inside panel flow) -->
+        <section class="section" id="contact-info" style="text-align: center;">
+          <h2 class="section-title"><strong>Contact Info</strong></h2>
+          <div class="event" style="max-width: 600px; margin: 0 auto;">
+            <p>For any queries or assistance, please reach out:</p>
+            <div
+              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; font-size: 1.2em; margin: 15px 0;">
+              <span style="white-space: nowrap;">
+                📞 <a id="contact-phone" class="clean-numbers" href="#"
+                  style="color: var(--gold-bright); text-decoration: none; font-weight: 700;">Loading...</a>
+              </span>
+              <span style="color: var(--gold-bright); display: none; margin: 0;">|</span>
+              <style>
+                @media (min-width: 600px) {
+                  .divider-pipe {
+                    display: inline !important;
+                  }
+                }
+              </style>
+              <span class="divider-pipe" style="color: var(--gold-bright); display: none;">|</span>
+              <span style="white-space: nowrap;">
+                📧 <a id="contact-email" href="#"
+                  style="color: var(--gold-bright); text-decoration: none; font-weight: 700;">Loading...</a>
+              </span>
+            </div>
+          </div>
+        </section>
 
-      <!-- CONTACT US (Now inside panel flow) -->
-      <section class="section" id="contact-info" style="text-align: center;">
-        <h2 class="section-title"><strong>Contact Info</strong></h2>
-        <div class="event" style="max-width: 600px; margin: 0 auto;">
-          <p>For any queries or assistance, please reach out:</p>
-          <p style="font-size: 1.2em; margin: 15px 0;">
-            📞 <a id="contact-phone" class="clean-numbers" href="#"
-              style="color: var(--gold-bright); text-decoration: none; font-weight: 700;">Loading...</a>
-          </p>
-          <p style="font-size: 1.1em;">
-            📧 <a id="contact-email" href="#"
-              style="color: var(--gold-bright); text-decoration: none; font-weight: 700;">Loading...</a>
-          </p>
+        <div id="youtube-subscription"
+          style="display: flex; justify-content: center; width: 100%; margin-top: 20px; position: relative; z-index: 35;">
+          <span style="text-align: center; font-style: italic; color: var(--gold-bright);">
+            📺 Subscribe to the <a id="youtube-channel-link" href="#" target="_blank"
+              style="color: var(--gold-bright); text-decoration: underline; font-weight: 600;">YouTube channel</a> for
+            live streaming of events
+          </span>
         </div>
-      </section>
 
-      <div id="youtube-subscription"
-        style="text-align: center; margin-top: 20px; font-style: italic; color: var(--gold-bright); position: relative; z-index: 35;">
-        📺 Subscribe to the <a id="youtube-channel-link" href="#" target="_blank"
-          style="color: var(--gold-bright); text-decoration: underline; font-weight: 600;">YouTube channel</a> for live
-        streaming of events
-      </div>
-
-      <!-- CHAKRA BEFORE BOTTOM ARCH -->
-      <div class="chakra-container">
-        <img src="assets/chakra.png" class="bottom-chakra" alt="Decorative Chakra">
-      </div>
+        <!-- CHAKRA BEFORE BOTTOM ARCH -->
+        <div class="chakra-container">
+          <img src="assets/chakra.png" class="bottom-chakra" alt="Decorative Chakra">
+        </div>
 
 
 
