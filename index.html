@@ -43,17 +43,48 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      background: #000000;
+      background: radial-gradient(circle at center, #0a0a14 0%, #000000 100%);
+      color: #f5e6c8;
+      overflow-x: hidden;
     }
 
-    .page-decor {
+    .stars-container {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.12;
-      background-image:
-        radial-gradient(circle, rgba(255, 255, 255, 0.5) 2px, transparent 3px);
-      background-size: 30px 30px;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--duration) infinite ease-in-out var(--delay);
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    .lily-bg {
+      position: fixed;
+      width: 150px;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.08;
+      z-index: 1;
+      filter: blur(1px);
     }
 
     .invite {
@@ -91,7 +122,7 @@
       position: relative;
       z-index: 10;
       border-radius: 20px;
-      padding: clamp(100px, 28vw, 600px) clamp(30px, 5vw, 60px) clamp(450px, 45vw, 550px);
+      padding: clamp(100px, 25vw, 500px) clamp(20px, 5vw, 60px) clamp(650px, 40vw, 1200px);
       /* Increased bottom padding to push the arch down a lot */
       border: 2px solid rgba(230, 213, 184, 0.4);
       overflow: visible;
@@ -470,6 +501,85 @@
       }
     }
 
+    /* Welcome Overlay */
+    #welcome-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      background-image: url("assets/input_bg1.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    #welcome-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(92, 22, 37, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+      z-index: 1;
+    }
+
+    #welcome-overlay>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .welcome-content {
+      padding: 40px;
+      border: 2px solid var(--gold-bright);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+      max-width: 90%;
+    }
+
+    .welcome-title {
+      font-family: "Pinyon Script", cursive;
+      color: var(--gold-bright);
+      font-size: clamp(40px, 8vw, 70px);
+      margin-bottom: 20px;
+    }
+
+    .welcome-text {
+      color: #f5e6c8;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .welcome-btn {
+      background: linear-gradient(135deg, #ffe08a, var(--gold-bright));
+      color: #2b1700;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .welcome-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+    }
+
+    #welcome-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -481,13 +591,22 @@
 </head>
 
 <body>
-  <div class="page-decor"></div>
+  <div class="stars-container" id="starsContainer"></div>
+
+  <!-- Welcome Overlay -->
+  <div id="welcome-overlay">
+    <div class="welcome-content">
+      <h2 class="welcome-title">Bharath & Anusha</h2>
+      <p class="welcome-text">ARE GETTING MARRIED</p>
+      <button class="welcome-btn" onclick="enterInvitation()">View Invitation</button>
+    </div>
+  </div>
 
   <!-- Music Player -->
   <div class="music-player" id="musicPlayer" onclick="toggleMusic()" title="Play/Pause music">
     <span class="music-icon" id="musicIcon">🎵</span>
   </div>
-  <audio id="bgMusic" loop preload="auto" autoplay></audio>
+  <audio id="bgMusic" loop preload="auto"></audio>
 
   <!-- Invitation Card -->
   <div class="invite">
@@ -668,29 +787,45 @@
       if (timeEl) timeEl.textContent = CONFIG.muhurthamTime;
       if (cityEl) cityEl.textContent = CONFIG.city;
 
-      // Load music
+      // Load music (Improved Autoplay handling)
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && CONFIG.musicFile) {
-        const source = document.createElement('source');
-        source.src = CONFIG.musicFile;
-        source.type = 'audio/mpeg';
-        bgMusic.appendChild(source);
-        bgMusic.volume = 0.2; /* Low volume for autoplay */
-        console.log('✅ Background music loaded');
+        bgMusic.src = CONFIG.musicFile;
+        bgMusic.volume = 0.4; // Slightly higher volume, still comfortable
+        console.log('✅ Background music source set');
 
-        // Auto-play attempt on first interaction (required by many browsers)
-        const startMusic = () => {
+        // Function to attempt playing
+        const playMusic = () => {
           if (bgMusic.paused) {
-            bgMusic.play().then(() => {
-              document.getElementById('musicPlayer').classList.add('playing');
-              document.getElementById('musicIcon').textContent = '⏸️';
-            }).catch(e => console.log("Autoplay blocked by browser policy"));
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                console.log("✅ Music started playing");
+                document.getElementById('musicPlayer').classList.add('playing');
+                document.getElementById('musicIcon').textContent = '⏸️';
+
+                // Clean up listeners once music starts
+                removeInteractionListeners();
+              }).catch(e => {
+                console.log("ℹ️ Autoplay still waiting for more explicit interaction:", e.message);
+              });
+            }
           }
-          window.removeEventListener('click', startMusic);
-          window.removeEventListener('touchstart', startMusic);
         };
-        window.addEventListener('click', startMusic);
-        window.addEventListener('touchstart', startMusic);
+
+        const removeInteractionListeners = () => {
+          ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            window.removeEventListener(evt, playMusic);
+          });
+        };
+
+        // Add listeners for ANY user interaction to start music
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+          window.addEventListener(evt, playMusic, { once: false }); // Wait for success
+        });
+
+        // Also try to play immediately (might work if user already interacted)
+        playMusic();
       }
 
       // Load Contact Details
@@ -731,9 +866,74 @@
       }
     }
 
+    function enterInvitation() {
+      const overlay = document.getElementById('welcome-overlay');
+      overlay.classList.add('hidden');
+
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic) {
+        bgMusic.play().then(() => {
+          document.getElementById('musicPlayer').classList.add('playing');
+          document.getElementById('musicIcon').textContent = '⏸️';
+          console.log("✅ Music started via manual entry");
+        }).catch(e => console.error("❌ Audio playback failed:", e));
+      }
+    }
+
     window.toggleMusic = toggleMusic;
+    window.enterInvitation = enterInvitation;
+
+    function createStars() {
+      const container = document.getElementById('starsContainer');
+      if (!container) return;
+
+      const count = 150;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * 3 + 2;
+
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.setProperty('--delay', `${delay}s`);
+        star.style.setProperty('--duration', `${duration}s`);
+
+        container.appendChild(star);
+      }
+    }
+
+    function createLilies() {
+      const container = document.body;
+      const count = 6;
+      for (let i = 0; i < count; i++) {
+        const lily = document.createElement('img');
+        lily.src = 'assets/lily_flower.png';
+        lily.className = 'lily-bg';
+
+        const x = Math.random() * 90;
+        const y = Math.random() * 90;
+        const rotation = Math.random() * 360;
+        const size = Math.random() * 100 + 100;
+
+        lily.style.left = `${x}%`;
+        lily.style.top = `${y}%`;
+        lily.style.width = `${size}px`;
+        lily.style.transform = `rotate(${rotation}deg)`;
+
+        container.insertBefore(lily, container.firstChild);
+      }
+    }
 
     window.addEventListener('load', function () {
+      createStars();
+      createLilies();
       document.querySelectorAll('.arch-invite').forEach(img => {
         img.addEventListener('load', () => console.log('✅ Arch loaded:', img.src));
         img.addEventListener('error', () => console.log('❌ Arch failed:', img.src));
