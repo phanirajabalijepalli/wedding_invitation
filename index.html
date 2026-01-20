@@ -91,7 +91,7 @@
       position: relative;
       z-index: 10;
       border-radius: 20px;
-      padding: clamp(100px, 28vw, 600px) clamp(30px, 5vw, 60px) clamp(650px, 45vw, 1000px);
+      padding: clamp(100px, 25vw, 500px) clamp(20px, 5vw, 60px) clamp(500px, 35vw, 850px);
       /* Increased bottom padding to push the arch down a lot */
       border: 2px solid rgba(230, 213, 184, 0.4);
       overflow: visible;
@@ -470,6 +470,85 @@
       }
     }
 
+    /* Welcome Overlay */
+    #welcome-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      background-image: url("assets/input_bg1.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    #welcome-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(92, 22, 37, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+      z-index: 1;
+    }
+
+    #welcome-overlay>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .welcome-content {
+      padding: 40px;
+      border: 2px solid var(--gold-bright);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+      max-width: 90%;
+    }
+
+    .welcome-title {
+      font-family: "Pinyon Script", cursive;
+      color: var(--gold-bright);
+      font-size: clamp(40px, 8vw, 70px);
+      margin-bottom: 20px;
+    }
+
+    .welcome-text {
+      color: #f5e6c8;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .welcome-btn {
+      background: linear-gradient(135deg, #ffe08a, var(--gold-bright));
+      color: #2b1700;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .welcome-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+    }
+
+    #welcome-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -483,11 +562,20 @@
 <body>
   <div class="page-decor"></div>
 
+  <!-- Welcome Overlay -->
+  <div id="welcome-overlay">
+    <div class="welcome-content">
+      <h2 class="welcome-title">Bharath & Anusha</h2>
+      <p class="welcome-text">ARE GETTING MARRIED</p>
+      <button class="welcome-btn" onclick="enterInvitation()">View Invitation</button>
+    </div>
+  </div>
+
   <!-- Music Player -->
   <div class="music-player" id="musicPlayer" onclick="toggleMusic()" title="Play/Pause music">
     <span class="music-icon" id="musicIcon">🎵</span>
   </div>
-  <audio id="bgMusic" loop preload="auto" autoplay></audio>
+  <audio id="bgMusic" loop preload="auto"></audio>
 
   <!-- Invitation Card -->
   <div class="invite">
@@ -747,7 +835,22 @@
       }
     }
 
+    function enterInvitation() {
+      const overlay = document.getElementById('welcome-overlay');
+      overlay.classList.add('hidden');
+
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic) {
+        bgMusic.play().then(() => {
+          document.getElementById('musicPlayer').classList.add('playing');
+          document.getElementById('musicIcon').textContent = '⏸️';
+          console.log("✅ Music started via manual entry");
+        }).catch(e => console.error("❌ Audio playback failed:", e));
+      }
+    }
+
     window.toggleMusic = toggleMusic;
+    window.enterInvitation = enterInvitation;
 
     window.addEventListener('load', function () {
       document.querySelectorAll('.arch-invite').forEach(img => {
