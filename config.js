@@ -12,5 +12,6 @@ const CONFIG = {
   city: "Clermont, FL",
 
   contactPhone: "+1 321 704 4902",
-  contactEmail: "phaniraja4@gmail.com"
+  contactEmail: "phaniraja4@gmail.com",
+  youtubeChannelUrl: "https://www.youtube.com/@phanirajabharath3013"
 };

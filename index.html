@@ -828,17 +828,22 @@
             📧 <a id="contact-email" href="#"
               style="color: var(--gold-text); text-decoration: none; font-weight: 700;">Loading...</a>
           </p>
-          <p style="margin-top: 15px; font-style: italic; color: var(--gold-text);">
-            📺 Subscribe to the YouTube channel(https://www.youtube.com/@phanirajabharath3013) for live streaming of
-            events
-          </p>
         </div>
       </section>
+
+      <div id="youtube-subscription"
+        style="text-align: center; margin-top: 20px; font-style: italic; color: var(--gold-text); position: relative; z-index: 35;">
+        📺 Subscribe to the <a id="youtube-channel-link" href="#" target="_blank"
+          style="color: var(--gold-bright); text-decoration: underline; font-weight: 600;">YouTube channel</a> for live
+        streaming of events
+      </div>
 
       <!-- CHAKRA BEFORE BOTTOM ARCH -->
       <div class="chakra-container">
         <img src="assets/chakra.png" class="bottom-chakra" alt="Decorative Chakra">
       </div>
+
+
 
     </div>
 
@@ -955,6 +960,12 @@
       if (emailEl && CONFIG.contactEmail) {
         emailEl.textContent = CONFIG.contactEmail;
         emailEl.href = `mailto:${CONFIG.contactEmail}`;
+      }
+
+      // Load YouTube Channel URL
+      const youtubeLink = document.getElementById('youtube-channel-link');
+      if (youtubeLink && CONFIG.youtubeChannelUrl) {
+        youtubeLink.href = CONFIG.youtubeChannelUrl;
       }
 
       console.log('✅ All configuration loaded successfully!');
