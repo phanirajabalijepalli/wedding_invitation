@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --maroon-velvet: #5C1625;
+      --maroon-velvet: #F08787;
       --gold-bright: #FFD700;
       --gold-text: #E6C266;
       --cream-border: #E6D5B8;
@@ -127,7 +127,9 @@
       border: 2px solid rgba(230, 213, 184, 0.4);
       overflow: visible;
 
-      background-image: url("assets/input_bg1.png");
+      background-image:
+        linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+        url("assets/input_bg2.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -513,7 +515,7 @@
       align-items: center;
       text-align: center;
       transition: opacity 0.8s ease, visibility 0.8s ease;
-      background-image: url("assets/input_bg1.png");
+      background-image: url("assets/input_bg2.png");
       background-size: cover;
       background-position: center;
     }
@@ -522,7 +524,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle, rgba(92, 22, 37, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+      background: radial-gradient(circle, rgba(92, 22, 37, 0.8) 0%, rgba(212, 175, 55, 0.1) 40%, rgba(0, 0, 0, 0.9) 100%);
       z-index: 1;
     }
 
@@ -791,7 +793,7 @@
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && CONFIG.musicFile) {
         bgMusic.src = CONFIG.musicFile;
-        bgMusic.volume = 0.2; // Slightly higher volume, still comfortable
+        bgMusic.volume = 0.1; // Slightly higher volume, still comfortable
         console.log('✅ Background music source set');
 
         // Function to attempt playing
