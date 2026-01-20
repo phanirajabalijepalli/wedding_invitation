@@ -111,8 +111,10 @@
       height: auto;
       /* max-height removed to maintain aspect ratio while stretching */
       pointer-events: none;
-      z-index: 20;
-      opacity: 0.95;
+      z-index: 30;
+      /* Top layer to ensure visibility */
+      opacity: 1;
+      filter: brightness(1.1);
     }
 
     .arch-top {
@@ -127,7 +129,8 @@
 
     .panel {
       position: relative;
-      z-index: 10;
+      z-index: 25;
+      /* Content layer, stays below arch edges */
       border-radius: 20px;
       padding: clamp(100px, 25vw, 500px) clamp(20px, 5vw, 60px) clamp(650px, 40vw, 1200px);
       /* Increased bottom padding to push the arch down a lot */
@@ -442,8 +445,8 @@
 
     @media (max-width: 768px) {
       .panel {
-        padding: 180px clamp(20px, 4vw, 35px) clamp(400px, 40vw, 700px);
-        /* Increased bottom padding for mobile to push arch down */
+        padding: 180px clamp(20px, 4vw, 35px) 200px;
+        /* Space for chakra to sit in */
       }
 
       h1 {
@@ -466,6 +469,19 @@
         object-fit: cover;
         /* Prevent squashing, allow slight cropping on sides */
       }
+
+      .bottom-chakra {
+        width: clamp(100px, 25vw, 180px);
+        margin-bottom: -120px;
+        /* ✅ Less negative margin */
+        margin-top: 40px;
+        margin-left: auto;
+        /* ✅ Center the image */
+        margin-right: auto;
+        /* ✅ Center the image */
+        /* ✅ Added spacing from content */
+
+      }
     }
 
     @media (max-width: 480px) {
@@ -478,8 +494,8 @@
       }
 
       .panel {
-        padding: 150px 16px 400px;
-        /* Pushed arch down for small phones */
+        padding: 150px 16px 180px;
+        /* Balanced for small phones */
       }
 
       .ganesh-img {
@@ -508,26 +524,51 @@
         padding: 9px 18px;
         font-size: 12px;
       }
+
+      .bottom-chakra {
+        width: clamp(80px, 30vw, 140px);
+        margin-bottom: -80px;
+        /* ✅ Less negative margin */
+        margin-top: 30px;
+        margin-left: auto;
+        /* ✅ Center the image */
+        margin-right: auto;
+        /* ✅ Center the image */
+        /* ✅ Spacing from contact section */
+      }
     }
 
     /* Chakra Styling */
     .chakra-container {
       text-align: center;
-      margin: 40px auto 0;
+      margin: 30px auto 0;
       position: relative;
       z-index: 30;
+      width: 100%;
+      /* ✅ Full width container */
+      display: flex;
+      /* ✅ Use flexbox for perfect centering */
+      justify-content: center;
+      /* ✅ Center horizontally */
+      align-items: center;
+      /* ✅ Center vertically */
     }
 
     .bottom-chakra {
       width: clamp(120px, 20vw, 250px);
       height: auto;
-      margin-bottom: -400px;
-      /* Pushed further down into the arch */
+      margin-bottom: -130px;
+      margin-top: 10px;
+      margin-left: auto;
+      /* ✅ Center the image */
+      margin-right: auto;
+      /* ✅ Center the image */
       filter: drop-shadow(0 0 15px rgba(230, 194, 102, 0.4)) brightness(1.2);
       animation: rotate-chakra 20s linear infinite;
       opacity: 0.9;
       position: relative;
-      z-index: 25;
+      z-index: 31;
+      display: block;
     }
 
     @keyframes rotate-chakra {
