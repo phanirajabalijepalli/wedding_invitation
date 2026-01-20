@@ -91,7 +91,7 @@
       position: relative;
       z-index: 10;
       border-radius: 20px;
-      padding: clamp(100px, 28vw, 600px) clamp(30px, 5vw, 60px) clamp(450px, 45vw, 550px);
+      padding: clamp(100px, 28vw, 600px) clamp(30px, 5vw, 60px) clamp(550px, 45vw, 700px);
       /* Increased bottom padding to push the arch down a lot */
       border: 2px solid rgba(230, 213, 184, 0.4);
       overflow: visible;
@@ -668,29 +668,45 @@
       if (timeEl) timeEl.textContent = CONFIG.muhurthamTime;
       if (cityEl) cityEl.textContent = CONFIG.city;
 
-      // Load music
+      // Load music (Improved Autoplay handling)
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && CONFIG.musicFile) {
-        const source = document.createElement('source');
-        source.src = CONFIG.musicFile;
-        source.type = 'audio/mpeg';
-        bgMusic.appendChild(source);
-        bgMusic.volume = 0.2; /* Low volume for autoplay */
-        console.log('✅ Background music loaded');
+        bgMusic.src = CONFIG.musicFile;
+        bgMusic.volume = 0.4; // Slightly higher volume, still comfortable
+        console.log('✅ Background music source set');
 
-        // Auto-play attempt on first interaction (required by many browsers)
-        const startMusic = () => {
+        // Function to attempt playing
+        const playMusic = () => {
           if (bgMusic.paused) {
-            bgMusic.play().then(() => {
-              document.getElementById('musicPlayer').classList.add('playing');
-              document.getElementById('musicIcon').textContent = '⏸️';
-            }).catch(e => console.log("Autoplay blocked by browser policy"));
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                console.log("✅ Music started playing");
+                document.getElementById('musicPlayer').classList.add('playing');
+                document.getElementById('musicIcon').textContent = '⏸️';
+
+                // Clean up listeners once music starts
+                removeInteractionListeners();
+              }).catch(e => {
+                console.log("ℹ️ Autoplay still waiting for more explicit interaction:", e.message);
+              });
+            }
           }
-          window.removeEventListener('click', startMusic);
-          window.removeEventListener('touchstart', startMusic);
         };
-        window.addEventListener('click', startMusic);
-        window.addEventListener('touchstart', startMusic);
+
+        const removeInteractionListeners = () => {
+          ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            window.removeEventListener(evt, playMusic);
+          });
+        };
+
+        // Add listeners for ANY user interaction to start music
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+          window.addEventListener(evt, playMusic, { once: false }); // Wait for success
+        });
+
+        // Also try to play immediately (might work if user already interacted)
+        playMusic();
       }
 
       // Load Contact Details
