@@ -34,6 +34,10 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "EB Garamond", serif;
       min-height: 100vh;
@@ -534,6 +538,10 @@
         /* ✅ Center the image */
         /* ✅ Spacing from contact section */
       }
+
+      :target {
+        scroll-margin-top: 240px;
+      }
     }
 
     /* Chakra Styling */
@@ -685,12 +693,55 @@
     #welcome-overlay.hidden {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* By default, let the page scroll normally (iframes won't steal touch/scroll) */
+    .embed iframe,
+    .video iframe {
+      pointer-events: none;
+    }
+
+    /* When user activates, iframe becomes interactive */
+    .embed.active iframe,
+    .video.active iframe {
+      pointer-events: auto;
+    }
+
+    /* Optional: show a small hint overlay */
+    /*.embed::after,
+    .video::after {
+      content: "Tap to interact";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      color: var(--gold-bright);
+    }*/
+
+    /* Show the hint only when NOT active */
+    .embed:not(.active)::after,
+    .video:not(.active)::after {
+      opacity: 1;
+    }
+
+    /* Make .embed and .video position context for ::after */
+    .embed,
+    .video {
+      position: relative;
     }
 
 
 
     :target {
-      scroll-margin-top: 30px;
+      scroll-margin-top: 400px;
     }
 
     .clean-numbers {
@@ -878,9 +929,10 @@
 
 
       <!-- RSVP + LOCATION -->
-      <section class="section two-col">
+      <section class="section two-col" id="rsvp-location">
 
-        <div id="rsvp">
+        <div style="position: relative;">
+          <a id="rsvp" style="visibility: hidden;"></a>
           <h2 class="section-title"><strong>RSVP</strong></h2>
           <div class="embed">
             <iframe id="rsvp-form" class="form-iframe" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
@@ -890,7 +942,8 @@
           </div>
         </div>
 
-        <div id="location">
+        <div style="position: relative;">
+          <a id="location" style="visibility: hidden;"></a>
           <h2 class="section-title"><strong>Location</strong></h2>
           <div class="embed">
             <iframe id="google-map" class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -1176,10 +1229,69 @@
 
     window.addEventListener('load', function () {
       createStars();
+      setupIframeActivation();
       document.querySelectorAll('.arch-invite').forEach(img => {
         img.addEventListener('load', () => console.log('✅ Arch loaded:', img.src));
         img.addEventListener('error', () => console.log('❌ Arch failed:', img.src));
       });
+    });
+
+    function setupIframeActivation() {
+      // Activate on tap/click
+      document.querySelectorAll('.embed, .video').forEach(box => {
+        box.addEventListener('click', () => {
+          box.classList.add('active');
+        });
+      });
+
+      // Deactivate when user taps elsewhere (so scroll works again)
+      document.addEventListener('click', (e) => {
+        const inside = e.target.closest('.embed, .video');
+        if (!inside) {
+          document.querySelectorAll('.embed.active, .video.active')
+            .forEach(x => x.classList.remove('active'));
+        }
+      });
+    }
+
+    // Custom scroll navigation with offset
+    function setupNavigationScroll() {
+      const offset = 400; // Offset to position content below the top arch
+
+      const buttons = document.querySelectorAll('a.btn[href^="#"]');
+      console.log('🔍 Found navigation buttons:', buttons.length);
+
+      buttons.forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          console.log('🎯 Clicked button for target:', targetId);
+
+          const targetElement = document.getElementById(targetId);
+          console.log('📍 Target element found:', targetElement);
+
+          if (targetElement) {
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            console.log('📏 Element position:', elementPosition);
+            console.log('📏 Scroll to position:', offsetPosition);
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          } else {
+            console.error('❌ Target element not found for ID:', targetId);
+          }
+        });
+      });
+    }
+
+    // Call navigation setup on DOMContentLoaded instead of load
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('✅ DOM Content Loaded - Setting up navigation');
+      setupNavigationScroll();
     });
   </script>
 </body>
