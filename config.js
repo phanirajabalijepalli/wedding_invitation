@@ -11,7 +11,7 @@ const CONFIG = {
   muhurthamTime: "11:53 AM",
   city: "Clermont, FL",
 
-  contactPhone: "+1 321 704 4902",
+  contactPhone: "+1 321 345 3129",
   contactEmail: "phaniraja4@gmail.com",
   youtubeChannelUrl: "https://www.youtube.com/@phanirajabharath3013"
 };
