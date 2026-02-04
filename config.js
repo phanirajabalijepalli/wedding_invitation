@@ -13,5 +13,5 @@ const CONFIG = {
 
   contactPhone: "+1 321 345 3129",
   contactEmail: "phaniraja4@gmail.com",
-  youtubeChannelUrl: "https://www.youtube.com/@phanirajabharath3013"
+  youtubeChannelUrl: "https://www.youtube.com/@phanirajabharath3013",
 };
