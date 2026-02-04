@@ -1,9 +1,5 @@
 const CONFIG = {
-<<<<<<< HEAD
   youtubeVideoId: "tZb7y1E81FQ",
-=======
-  youtubeVideoId: "tZb7y1E81FQ", 
->>>>>>> 743b88b4c95374263bfb1ad3bc5d133688006cb8
 
   googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSd02aEaNgvq4qSxFbCoy1oxV4yviu2P9m_2bfWt_PuHUy6W2A/viewform?embedded=true",
 
